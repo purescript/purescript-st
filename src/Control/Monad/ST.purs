@@ -1,6 +1,6 @@
 module Control.Monad.ST where
 
-import Control.Monad.Eff
+import Control.Monad.Eff (Eff(), runPure)
 
 -- | The `ST` effect represents _local mutation_, i.e. mutation which does not "escape" into the surrounding computation.
 -- |
@@ -13,48 +13,16 @@ foreign import data ST :: * -> !
 foreign import data STRef :: * -> * -> *
 
 -- | Create a new mutable reference.
-foreign import newSTRef
-  """
-  function newSTRef(val) {
-    return function() {
-      return { value: val };
-    };
-  }
-  """ :: forall a h r. a -> Eff (st :: ST h | r) (STRef h a)
+foreign import newSTRef :: forall a h r. a -> Eff (st :: ST h | r) (STRef h a)
 
 -- | Read the current value of a mutable reference.
-foreign import readSTRef
-  """
-  function readSTRef(ref) {
-    return function() {
-      return ref.value;
-    };
-  }
-  """ :: forall a h r. STRef h a -> Eff (st :: ST h | r) a
+foreign import readSTRef :: forall a h r. STRef h a -> Eff (st :: ST h | r) a
 
 -- | Modify the value of a mutable reference by applying a function to the current value.
-foreign import modifySTRef
-  """
-  function modifySTRef(ref) {
-    return function(f) {
-      return function() {
-        return ref.value = f(ref.value);
-      };
-    };
-  }
-  """ :: forall a h r. STRef h a -> (a -> a) -> Eff (st :: ST h | r) a
+foreign import modifySTRef :: forall a h r. STRef h a -> (a -> a) -> Eff (st :: ST h | r) a
 
 -- | Set the value of a mutable reference.
-foreign import writeSTRef
-  """
-  function writeSTRef(ref) {
-    return function(a) {
-      return function() {
-        return ref.value = a;
-      };
-    };
-  }
-  """ :: forall a h r. STRef h a -> a -> Eff (st :: ST h | r) a
+foreign import writeSTRef :: forall a h r. STRef h a -> a -> Eff (st :: ST h | r) a
 
 -- | Run an `ST` computation.
 -- |
@@ -62,12 +30,7 @@ foreign import writeSTRef
 -- | to the surrounding computation.
 -- |
 -- | It may cause problems to apply this function using the `$` operator. The recommended approach is to use parentheses instead.
-foreign import runST
-  """
-  function runST(f) {
-    return f;
-  }
-  """ :: forall a r. (forall h. Eff (st :: ST h | r) a) -> Eff r a
+foreign import runST :: forall a r. (forall h. Eff (st :: ST h | r) a) -> Eff r a
 
 -- | A convenience function which combines `runST` with `runPure`, which can be used when the only required effect is `ST`.
 -- |
