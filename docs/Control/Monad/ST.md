@@ -68,7 +68,7 @@ It may cause problems to apply this function using the `$` operator. The recomme
 #### `pureST`
 
 ``` purescript
-pureST :: forall a. (forall h r. Eff (st :: ST h | r) a) -> a
+pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
 ```
 
 A convenience function which combines `runST` with `runPure`, which can be used when the only required effect is `ST`.

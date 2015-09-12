@@ -38,5 +38,5 @@ foreign import runST :: forall a r. (forall h. Eff (st :: ST h | r) a) -> Eff r 
 -- |
 -- | Note: since this function has a rank-2 type, it may cause problems to apply this function using the `$` operator. The recommended approach
 -- | is to use parentheses instead.
-pureST :: forall a. (forall h r. Eff (st :: ST h | r) a) -> a
+pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
 pureST st = runPure (runST st)
