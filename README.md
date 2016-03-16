@@ -12,6 +12,6 @@ The ST effect, for safe local mutation. For use with compiler version >= 0.7.
 bower install purescript-st
 ```
 
-## Module documentation
+## Documentation
 
-- [Control.Monad.ST](docs/Control/Monad/ST.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-st).
