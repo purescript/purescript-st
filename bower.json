@@ -2,9 +2,6 @@
   "name": "purescript-st",
   "homepage": "https://github.com/purescript/purescript-st",
   "description": "The ST effect, for safe local mutation",
-  "keywords": [
-    "purescript"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,6 +17,6 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-eff": "^0.1.0"
+    "purescript-eff": "^1.0.0-rc.1"
   }
 }
