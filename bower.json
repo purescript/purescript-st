@@ -17,6 +17,6 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-eff": "^1.0.0-rc.1"
+    "purescript-eff": "^1.0.0"
   }
 }
