@@ -4,7 +4,7 @@ import Prelude
 
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
-import Control.Monad.ST (ST, STRef, newSTRef, readSTRef, modifySTRef, modifySTRef', writeSTRef)
+import Control.Monad.ST (ST, STRef, newSTRef, readSTRef, (%%=), (%=), (.=))
 
 import Test.Assert (ASSERT, assert)
 
@@ -28,14 +28,14 @@ testWriteSTRef :: forall h. EffTestST h
 testWriteSTRef = do
   log "writeSTRef"
   ref <- newSTRef true
-  writeSTRef ref false
+  ref .= false
   testReadSTRef ref false
 
 testModifySTRef :: forall h. EffTestST h
 testModifySTRef = do
   log "modifySTRef"
   ref <- newSTRef true
-  val <- modifySTRef ref not
+  val <- ref %= not
   assert $ val == false
   testReadSTRef ref false
 
@@ -43,6 +43,6 @@ testModifySTRef' :: forall h. EffTestST h
 testModifySTRef' = do
   log "modifySTRef'"
   ref <- newSTRef true
-  val <- modifySTRef' ref (\old -> { newValue: old, returnValue: not old})
+  val <- ref %%= \old -> { newValue: old, returnValue: not old}
   assert $ val == false
   testReadSTRef ref true

@@ -4,9 +4,9 @@ module Control.Monad.ST
 , STRef
 , newSTRef
 , readSTRef
-, modifySTRef
-, modifySTRef'
-, writeSTRef
+, modifySTRef, (%=)
+, modifySTRef', (%%=)
+, writeSTRef, (.=)
 , runST
 , pureST
 ) where
@@ -46,15 +46,24 @@ readSTRef ref = unsafeInterleaveEff (readRef (toRef ref))
 modifySTRef :: forall a h r. STRef h a -> (a -> a) -> Eff (st :: ST h | r) a
 modifySTRef ref f = unsafeInterleaveEff (modifyRef (toRef ref) f)
 
+-- | An infix version of `modifySTRef`.
+infix 4 modifySTRef as %=
+
 -- | Update the value of a mutable reference by applying a function to the
 -- | current value that yields the new value and a separate return value.
 -- | Basically shorthand for `readSTRef` before `modifySTRef`.
 modifySTRef' :: forall a b h r. STRef h a -> (a -> Modified a b) -> Eff (st :: ST h | r) b
 modifySTRef' ref f = unsafeInterleaveEff (modifyRef' (toRef ref) f)
 
+-- | An infix version of `modifySTRef'`.
+infix 4 modifySTRef' as %%=
+
 -- | Update the value of a mutable reference to the specified value.
 writeSTRef :: forall a h r. STRef h a -> a -> Eff (st :: ST h | r) Unit
 writeSTRef ref val = unsafeInterleaveEff (writeRef (toRef ref) val)
+
+-- | An infix version of `writeSTRef`.
+infix 4 writeSTRef as .=
 
 -- | Run an `ST` computation.
 -- |
