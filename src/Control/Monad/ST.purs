@@ -9,12 +9,13 @@ module Control.Monad.ST
 , modifySTRef', (%%=)
 , runST
 , pureST
+, getRef
 ) where
 
 import Prelude (Unit, bind, pure)
 
 import Control.Monad.Eff (Eff, runPure)
-import Control.Monad.Eff.Ref (Modified, Ref, modifyRef, modifyRef', newRef, readRef, writeRef)
+import Control.Monad.Eff.Ref (Modified, REF, Ref, modifyRef, modifyRef', newRef, readRef, writeRef)
 import Control.Monad.Eff.Ref (Modified) as Exports
 import Control.Monad.Eff.Unsafe (unsafeInterleaveEff)
 
@@ -39,11 +40,11 @@ newSTRef val = do
 
 -- | Read the current value of a mutable reference.
 readSTRef :: forall a h r. STRef h a -> Eff (st :: ST h | r) a
-readSTRef ref = unsafeInterleaveEff (readRef (toRef ref))
+readSTRef ref = unsafeInterleaveEff (readRef (unsafeToRef ref))
 
 -- | Update the value of a mutable reference to the specified value.
 writeSTRef :: forall a h r. STRef h a -> a -> Eff (st :: ST h | r) Unit
-writeSTRef ref val = unsafeInterleaveEff (writeRef (toRef ref) val)
+writeSTRef ref val = unsafeInterleaveEff (writeRef (unsafeToRef ref) val)
 
 -- | An infix version of `writeSTRef`.
 infix 4 writeSTRef as .=
@@ -51,7 +52,7 @@ infix 4 writeSTRef as .=
 -- | Update the value of a mutable reference by applying a function to the
 -- | current value.
 modifySTRef :: forall a h r. STRef h a -> (a -> a) -> Eff (st :: ST h | r) a
-modifySTRef ref f = unsafeInterleaveEff (modifyRef (toRef ref) f)
+modifySTRef ref f = unsafeInterleaveEff (modifyRef (unsafeToRef ref) f)
 
 -- | An infix version of `modifySTRef`.
 infix 4 modifySTRef as %=
@@ -60,7 +61,7 @@ infix 4 modifySTRef as %=
 -- | current value that yields the new value and a separate return value.
 -- | Basically shorthand for `readSTRef` before `modifySTRef`.
 modifySTRef' :: forall a b h r. STRef h a -> (a -> Modified a b) -> Eff (st :: ST h | r) b
-modifySTRef' ref f = unsafeInterleaveEff (modifyRef' (toRef ref) f)
+modifySTRef' ref f = unsafeInterleaveEff (modifyRef' (unsafeToRef ref) f)
 
 -- | An infix version of `modifySTRef'`.
 infix 4 modifySTRef' as %%=
@@ -85,7 +86,11 @@ runST = unsafeInterleaveEff
 pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
 pureST st = runPure (runST st)
 
--- | ?Safely? coerce a locally mutable `STRef h a` to a globally mutable `Ref a`
--- | discarding the phantom type `h`.
-toRef :: forall a h. STRef h a -> Ref a
-toRef (STRef ref) = ref
+-- | Coerce a locally mutable `STRef h a` to a globally mutable `Ref a`. It's
+-- | effectual because the phantom type which restricts the scope of effects in
+-- | `runST` is discarded.
+getRef :: forall a h r. STRef h a -> Eff (ref :: REF | r) (Ref a)
+getRef ref = pure (unsafeToRef ref)
+
+unsafeToRef :: forall a h. STRef h a -> Ref a
+unsafeToRef (STRef ref) = ref
