@@ -6,7 +6,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Ref (readRef)
 import Control.Monad.Eff.Ref.Unsafe (unsafeRunRef)
-import Control.Monad.ST (ST, STRef, getRef, newSTRef, readSTRef, runST, (%%=), (%=), (.=))
+import Control.Monad.ST (ST, STRef, getRef, modifySTRef, modifySTRef', newSTRef, readSTRef, runST, writeSTRef)
 
 import Test.Assert (ASSERT, assert)
 
@@ -30,14 +30,14 @@ testWriteSTRef :: forall h. EffTestST h
 testWriteSTRef = do
   log "writeSTRef"
   ref <- newSTRef true
-  ref .= false
+  writeSTRef ref false
   testReadSTRef ref false
 
 testModifySTRef :: forall h. EffTestST h
 testModifySTRef = do
   log "modifySTRef"
   ref <- newSTRef true
-  val <- ref %= not
+  val <- modifySTRef ref not
   assert $ val == false
   testReadSTRef ref false
 
@@ -45,7 +45,7 @@ testModifySTRef' :: forall h. EffTestST h
 testModifySTRef' = do
   log "modifySTRef'"
   ref <- newSTRef true
-  val <- ref %%= \old -> { newValue: old, returnValue: not old}
+  val <- modifySTRef' ref (\old -> { newValue: old, returnValue: not old})
   assert $ val == false
   testReadSTRef ref true
 
