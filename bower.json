@@ -17,6 +17,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-eff": "^1.0.0"
+    "purescript-eff": "^1.0.0",
+    "purescript-refs": "texastoland/purescript-refs#return-on-write"
+  },
+  "devDependencies": {
+    "purescript-assert": "^1.0.0",
+    "purescript-console": "^1.0.0"
   }
 }
