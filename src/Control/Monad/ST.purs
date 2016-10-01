@@ -1,6 +1,6 @@
 module Control.Monad.ST where
 
-import Control.Monad.Eff (Eff(), runPure)
+import Control.Monad.Eff (Eff, runPure)
 
 -- | The `ST` effect represents _local mutation_, i.e. mutation which does not
 -- | "escape" into the surrounding computation.
