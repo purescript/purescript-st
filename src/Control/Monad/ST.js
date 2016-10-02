@@ -1,7 +1,4 @@
-/* global exports */
 "use strict";
-
-// module Control.Monad.ST
 
 exports.newSTRef = function (val) {
   return function () {
