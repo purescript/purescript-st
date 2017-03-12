@@ -1,6 +1,6 @@
 module Control.Monad.ST where
 
-import Control.Monad.Eff (Eff, runPure)
+import Control.Monad.Eff (Eff, kind Effect, runPure)
 
 -- | The `ST` effect represents _local mutation_, i.e. mutation which does not
 -- | "escape" into the surrounding computation.
@@ -9,11 +9,11 @@ import Control.Monad.Eff (Eff, runPure)
 -- | restrict the set of reference cells it is allowed to access.
 -- |
 -- | The `runST` function can be used to handle the `ST` effect.
-foreign import data ST :: * -> !
+foreign import data ST :: Type -> Effect
 
 -- | The type `STRef h a` represents a mutable reference holding a value of
 -- | type `a`, which can be used with the `ST h` effect.
-foreign import data STRef :: * -> * -> *
+foreign import data STRef :: Type -> Type -> Type
 
 -- | Create a new mutable reference.
 foreign import newSTRef

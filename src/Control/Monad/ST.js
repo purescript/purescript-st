@@ -15,8 +15,7 @@ exports.readSTRef = function (ref) {
 exports.modifySTRef = function (ref) {
   return function (f) {
     return function () {
-      /* jshint boss: true */
-      return ref.value = f(ref.value);
+      return ref.value = f(ref.value); // eslint-disable-line no-return-assign
     };
   };
 };
@@ -24,8 +23,7 @@ exports.modifySTRef = function (ref) {
 exports.writeSTRef = function (ref) {
   return function (a) {
     return function () {
-      /* jshint boss: true */
-      return ref.value = a;
+      return ref.value = a; // eslint-disable-line no-return-assign
     };
   };
 };
