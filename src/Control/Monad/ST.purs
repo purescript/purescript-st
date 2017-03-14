@@ -11,8 +11,8 @@ import Control.Monad.Eff (Eff, runPure)
 -- | The `runST` function can be used to handle the `ST` effect.
 foreign import data ST :: * -> !
 
--- | The type `STRef s a` represents a mutable reference holding a value of
--- | type `a`, which can be used with the `ST s` effect.
+-- | The type `STRef h a` represents a mutable reference holding a value of
+-- | type `a`, which can be used with the `ST h` effect.
 foreign import data STRef :: * -> * -> *
 
 -- | Create a new mutable reference.
@@ -44,7 +44,7 @@ foreign import writeSTRef
 -- | Run an `ST` computation.
 -- |
 -- | Note: the type of `runST` uses a rank-2 type to constrain the phantom
--- | type `s`, such that the computation must not leak any mutable references
+-- | type `h`, such that the computation must not leak any mutable references
 -- | to the surrounding computation.
 -- |
 -- | It may cause problems to apply this function using the `$` operator. The
