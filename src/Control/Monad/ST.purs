@@ -11,6 +11,8 @@ import Control.Monad.Eff (Eff, kind Effect, runPure)
 -- | The `runST` function can be used to handle the `ST` effect.
 foreign import data ST :: Type -> Effect
 
+type STEff a = forall h. Eff (st :: ST h) a
+
 -- | The type `STRef h a` represents a mutable reference holding a value of
 -- | type `a`, which can be used with the `ST h` effect.
 foreign import data STRef :: Type -> Type -> Type
@@ -60,5 +62,5 @@ foreign import runST
 -- | Note: since this function has a rank-2 type, it may cause problems to apply
 -- | this function using the `$` operator. The recommended approach is to use
 -- | parentheses instead.
-pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
+pureST :: forall a. STEff a -> a
 pureST st = runPure (runST st)
