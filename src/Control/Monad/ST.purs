@@ -11,8 +11,8 @@ import Control.Monad.Eff (Eff, kind Effect, runPure)
 -- | The `runST` function can be used to handle the `ST` effect.
 foreign import data ST :: Type -> Effect
 
--- | The type `STRef h a` represents a mutable reference holding a value of
--- | type `a`, which can be used with the `ST h` effect.
+-- | The type `STRef h r` represents a mutable reference holding a value of
+-- | type `r`, which can be used with the `ST h` effect.
 foreign import data STRef :: Type -> Type -> Type
 
 -- | Create a new mutable reference.
