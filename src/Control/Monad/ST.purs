@@ -1,45 +1,66 @@
 module Control.Monad.ST where
 
-import Control.Monad.Eff (Eff, kind Effect, runPure)
+import Control.Applicative (class Applicative, pure)
+import Control.Apply (class Apply, apply)
+import Control.Bind (class Bind, bind)
+import Control.Monad (class Monad)
+import Control.Monad.Eff (Eff, runPure)
+import Control.Monad.Eff.Ref (Ref, newRef, readRef, writeRef)
+import Control.Monad.Eff.Ref.Unsafe (unsafeRunRef)
+import Data.Functor (class Functor, map)
 
--- | The `ST` effect represents _local mutation_, i.e. mutation which does not
+-- | The `ST h a` type represents _local mutation_, i.e. mutation which does not
 -- | "escape" into the surrounding computation.
 -- |
 -- | An `ST` computation is parameterized by a phantom type which is used to
 -- | restrict the set of reference cells it is allowed to access.
 -- |
--- | The `runST` function can be used to handle the `ST` effect.
-foreign import data ST :: Type -> Effect
+-- | The `runST` function can be used to evalutate the `ST` type.
+newtype ST h a = ST (forall e. Eff e a)
+
+instance functorST :: Functor (ST h) where
+  map f (ST x) = ST (map f x)
+
+instance applyST :: Apply (ST h) where
+  apply (ST f) (ST x) = ST (apply f x)
+
+instance applicativeST :: Applicative (ST h) where
+  pure x = ST (pure x)
+
+instance bindST :: Bind (ST h) where
+  bind (ST x') f = ST do
+    x <- x'
+    let ST y = f x
+    y
+
+instance monadST :: Monad (ST h)
 
 -- | The type `STRef h a` represents a mutable reference holding a value of
--- | type `a`, which can be used with the `ST h` effect.
-foreign import data STRef :: Type -> Type -> Type
+-- | type `a`, which can be used with the `ST h` type.
+newtype STRef h a = STRef (Ref a)
 
 -- | Create a new mutable reference.
-foreign import newSTRef
-  :: forall a h r
-   . a
-  -> Eff (st :: ST h | r) (STRef h a)
+newSTRef :: forall a h. a -> ST h (STRef h a)
+newSTRef x = ST (unsafeRunRef (map STRef (newRef x)))
 
 -- | Read the current value of a mutable reference.
-foreign import readSTRef
-  :: forall a h r
-   . STRef h a
-  -> Eff (st :: ST h | r) a
+readSTRef :: forall a h. STRef h a -> ST h a
+readSTRef (STRef x) = ST (unsafeRunRef (readRef x))
 
 -- | Modify the value of a mutable reference by applying a function to the
 -- | current value.
-foreign import modifySTRef
-  :: forall a h r
-   . STRef h a -> (a -> a)
-  -> Eff (st :: ST h | r) a
+modifySTRef :: forall a h. STRef h a -> (a -> a) -> ST h a
+modifySTRef (STRef x') f = ST (unsafeRunRef do
+  x <- readRef x'
+  let y = f x
+  _ <- writeRef x' y
+  pure y)
 
 -- | Set the value of a mutable reference.
-foreign import writeSTRef
-  :: forall a h r
-   . STRef h a
-  -> a
-  -> Eff (st :: ST h | r) a
+writeSTRef :: forall a h. STRef h a -> a -> ST h a
+writeSTRef (STRef x') x = ST (unsafeRunRef do
+  _ <- writeRef x' x
+  pure x)
 
 -- | Run an `ST` computation.
 -- |
@@ -49,16 +70,5 @@ foreign import writeSTRef
 -- |
 -- | It may cause problems to apply this function using the `$` operator. The
 -- | recommended approach is to use parentheses instead.
-foreign import runST
-  :: forall a r
-   . (forall h. Eff (st :: ST h | r) a)
-  -> Eff r a
-
--- | A convenience function which combines `runST` with `runPure`, which can be
--- | used when the only required effect is `ST`.
--- |
--- | Note: since this function has a rank-2 type, it may cause problems to apply
--- | this function using the `$` operator. The recommended approach is to use
--- | parentheses instead.
-pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
-pureST st = runPure (runST st)
+runST :: forall a. (forall h. ST h a) -> a
+runST (ST x) = runPure x
