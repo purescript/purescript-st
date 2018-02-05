@@ -1,45 +1,77 @@
-module Control.Monad.ST where
+module Control.Monad.ST
+  ( kind Region
+  , ST
+  , STRef
+  , newSTRef
+  , readSTRef
+  , modifySTRef
+  , writeSTRef
+  , pureST
+  ) where
 
-import Control.Monad.Eff (Eff, kind Effect, runPure)
+import Prelude
 
--- | The `ST` effect represents _local mutation_, i.e. mutation which does not
--- | "escape" into the surrounding computation.
+-- | `ST` is concerned with _restricted_ mutation. Mutation
+-- | is restricted to a _region_ of mutable references.
+-- | This kind is inhabited by phantom types which represent
+-- | regions in the type system.
+foreign import kind Region
+
+-- | The `ST` type constructor allows _local mutation_, i.e.
+-- | mutation which does not "escape" into the surrounding
+-- | computation.
 -- |
 -- | An `ST` computation is parameterized by a phantom type which is used to
 -- | restrict the set of reference cells it is allowed to access.
 -- |
--- | The `runST` function can be used to handle the `ST` effect.
-foreign import data ST :: Type -> Effect
+-- | The `runST` function can be used to run a computation in the
+-- | `ST` monad.
+foreign import data ST :: Region -> Type -> Type
 
--- | The type `STRef h a` represents a mutable reference holding a value of
--- | type `a`, which can be used with the `ST h` effect.
-foreign import data STRef :: Type -> Type -> Type
+foreign import mapST
+  :: forall r a b
+   . (a -> b)
+  -> ST r a
+  -> ST r b
+
+foreign import pureST_ :: forall r a. a -> ST r a
+
+foreign import bindST_
+  :: forall r a b
+   . ST r a
+  -> (a -> ST r b)
+  -> ST r b
+
+instance functorST :: Functor (ST r) where
+  map = mapST
+
+instance applyST :: Apply (ST r) where
+  apply = ap
+
+instance applicativeST :: Applicative (ST r) where
+  pure = pureST_
+
+instance bindST :: Bind (ST r) where
+  bind = bindST_
+
+instance monadST :: Monad (ST r)
+
+-- | The type `STRef r a` represents a mutable reference holding a value of
+-- | type `a`, which can be used with the `ST r` effect.
+foreign import data STRef :: Region -> Type -> Type
 
 -- | Create a new mutable reference.
-foreign import newSTRef
-  :: forall a h r
-   . a
-  -> Eff (st :: ST h | r) (STRef h a)
+foreign import newSTRef :: forall a r. a -> ST r (STRef r a)
 
 -- | Read the current value of a mutable reference.
-foreign import readSTRef
-  :: forall a h r
-   . STRef h a
-  -> Eff (st :: ST h | r) a
+foreign import readSTRef :: forall a r. STRef r a -> ST r a
 
 -- | Modify the value of a mutable reference by applying a function to the
 -- | current value.
-foreign import modifySTRef
-  :: forall a h r
-   . STRef h a -> (a -> a)
-  -> Eff (st :: ST h | r) a
+foreign import modifySTRef :: forall a r. STRef r a -> (a -> a) -> ST r a
 
 -- | Set the value of a mutable reference.
-foreign import writeSTRef
-  :: forall a h r
-   . STRef h a
-  -> a
-  -> Eff (st :: ST h | r) a
+foreign import writeSTRef :: forall a r. STRef r a -> a -> ST r a
 
 -- | Run an `ST` computation.
 -- |
@@ -49,16 +81,4 @@ foreign import writeSTRef
 -- |
 -- | It may cause problems to apply this function using the `$` operator. The
 -- | recommended approach is to use parentheses instead.
-foreign import runST
-  :: forall a r
-   . (forall h. Eff (st :: ST h | r) a)
-  -> Eff r a
-
--- | A convenience function which combines `runST` with `runPure`, which can be
--- | used when the only required effect is `ST`.
--- |
--- | Note: since this function has a rank-2 type, it may cause problems to apply
--- | this function using the `$` operator. The recommended approach is to use
--- | parentheses instead.
-pureST :: forall a. (forall h. Eff (st :: ST h) a) -> a
-pureST st = runPure (runST st)
+foreign import pureST :: forall a. (forall r. ST r a) -> a
