@@ -1,6 +1,6 @@
 "use strict";
 
-exports.mapST = function (f) {
+exports.map_ = function (f) {
   return function (a) {
     return function () {
       return f(a());
@@ -8,13 +8,13 @@ exports.mapST = function (f) {
   };
 };
 
-exports.pureST_ = function (a) {
+exports.pure_ = function (a) {
   return function () {
     return a;
   };
 };
 
-exports.bindST_ = function (a) {
+exports.bind_ = function (a) {
   return function (f) {
     return function () {
       return f(a())();
@@ -22,34 +22,16 @@ exports.bindST_ = function (a) {
   };
 };
 
-exports.newSTRef = function (val) {
-  return function () {
-    return { value: val };
-  };
+exports.run = function (f) {
+  return f();
 };
 
-exports.readSTRef = function (ref) {
-  return function () {
-    return ref.value;
-  };
-};
-
-exports.modifySTRef = function (ref) {
-  return function (f) {
-    return function () {
-      return ref.value = f(ref.value); // eslint-disable-line no-return-assign
-    };
-  };
-};
-
-exports.writeSTRef = function (ref) {
+exports["while"] = function (f) {
   return function (a) {
     return function () {
-      return ref.value = a; // eslint-disable-line no-return-assign
+      while (f()) {
+        a();
+      }
     };
   };
-};
-
-exports.pureST = function (f) {
-  return f();
 };

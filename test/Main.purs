@@ -2,19 +2,20 @@ module Test.Main where
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, logShow)
-import Control.Monad.ST (modifySTRef, newSTRef, readSTRef, pureST)
+import Effect (Effect)
+import Effect.Console (logShow)
+import Control.Monad.ST as ST
+import Control.Monad.ST.Ref as STRef
 
 sumOfSquares :: Int
-sumOfSquares = pureST do
-  total <- newSTRef 0
-  let loop 0 = readSTRef total
+sumOfSquares = ST.run do
+  total <- STRef.new 0
+  let loop 0 = STRef.read total
       loop n = do
-        _ <- modifySTRef total (_ + (n * n))
+        _ <- STRef.modify (_ + (n * n)) total
         loop (n - 1)
   loop 100
 
-main :: Eff (console :: CONSOLE) Unit
+main :: Effect Unit
 main = do
   logShow sumOfSquares

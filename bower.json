@@ -16,10 +16,10 @@
     "bower.json",
     "package.json"
   ],
-  "devDependencies": {
-    "purescript-console": "^3.0.0"
-  },
   "dependencies": {
-    "purescript-prelude": "^3.1.1"
+    "purescript-prelude": "#compiler/0.12"
+  },
+  "devDependencies": {
+    "purescript-console": "#compiler/0.12"
   }
 }
