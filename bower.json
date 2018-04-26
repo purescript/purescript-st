@@ -17,7 +17,8 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-prelude": "#compiler/0.12"
+    "purescript-prelude": "#compiler/0.12",
+    "purescript-tailrec": "#compiler/0.12"
   },
   "devDependencies": {
     "purescript-console": "#compiler/0.12"
