@@ -42,7 +42,7 @@ instance monadST :: Monad (ST r)
 instance monadRecST :: MonadRec (ST r) where
   tailRecM f a = do
     r <- new =<< f a
-    while (isDone <$> read r) do
+    while (isLooping <$> read r) do
       read r >>= case _ of
         Loop a' -> do
           e <- f a'
@@ -53,8 +53,8 @@ instance monadRecST :: MonadRec (ST r) where
       fromDone :: forall a b. Step a b -> b
       fromDone = unsafePartial \(Done b) -> b
 
-      isDone = case _ of
-        Done _ -> true
+      isLooping = case _ of
+        Loop _ -> true
         _ -> false
 
 -- | Run an `ST` computation.
