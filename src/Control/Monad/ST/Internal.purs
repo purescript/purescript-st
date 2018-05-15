@@ -73,6 +73,18 @@ foreign import run :: forall a. (forall r. ST r a) -> a
 -- | computation ends.
 foreign import while :: forall r a. ST r Boolean -> ST r a -> ST r Unit
 
+-- | Loop over a consecutive collection of numbers
+-- |
+-- | `ST.for lo hi f` runs the computation returned by the function `f` for each
+-- | of the inputs between `lo` (inclusive) and `hi` (exclusive).
+foreign import for :: forall r a. Int -> Int -> (Int -> ST r a) -> ST r Unit
+
+-- | Loop over an array of values.
+-- |
+-- | `ST.foreach xs f` runs the computation returned by the function `f` for each
+-- | of the inputs `xs`.
+foreign import foreach :: forall r a. Array a -> (a -> ST r Unit) -> ST r Unit
+
 -- | The type `STRef r a` represents a mutable reference holding a value of
 -- | type `a`, which can be used with the `ST r` effect.
 foreign import data STRef :: Region -> Type -> Type
