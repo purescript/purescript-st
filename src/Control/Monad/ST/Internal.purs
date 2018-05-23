@@ -101,9 +101,9 @@ foreign import read :: forall a r. STRef r a -> ST r a
 foreign import modify' :: forall r a b. (a -> { state :: a, value :: b }) -> STRef r a -> ST r b
 
 -- | Modify the value of a mutable reference by applying a function to the
--- | current value.
-modify :: forall r a. (a -> a) -> STRef r a -> ST r Unit
-modify f = modify' (\s -> { state: f s, value: unit })
+-- | current value. The modified value is returned.
+modify :: forall r a. (a -> a) -> STRef r a -> ST r a
+modify f = modify' \s -> let s' = f s in { state: s', value: s' }
 
 -- | Set the value of a mutable reference.
 foreign import write :: forall a r. a -> STRef r a -> ST r a
