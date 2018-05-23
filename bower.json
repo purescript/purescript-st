@@ -2,7 +2,7 @@
   "name": "purescript-st",
   "homepage": "https://github.com/purescript/purescript-st",
   "description": "The ST effect, for safe local mutation",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/purescript/purescript-st.git"
@@ -17,10 +17,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-prelude": "#compiler/0.12",
-    "purescript-tailrec": "#compiler/0.12"
+    "purescript-prelude": "^4.0.0",
+    "purescript-tailrec": "^4.0.0",
+    "purescript-partial": "^2.0.0"
   },
   "devDependencies": {
-    "purescript-console": "#compiler/0.12"
+    "purescript-console": "^4.0.0"
   }
 }
