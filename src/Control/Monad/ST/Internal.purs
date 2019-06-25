@@ -60,7 +60,7 @@ instance monadRecST :: MonadRec (ST r) where
 -- | Run an `ST` computation.
 -- |
 -- | Note: the type of `run` uses a rank-2 type to constrain the phantom
--- | type `h`, such that the computation must not leak any mutable references
+-- | type `r`, such that the computation must not leak any mutable references
 -- | to the surrounding computation. It may cause problems to apply this
 -- | function using the `$` operator. The recommended approach is to use
 -- | parentheses instead.
