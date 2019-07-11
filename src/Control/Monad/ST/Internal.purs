@@ -3,6 +3,7 @@ module Control.Monad.ST.Internal where
 import Prelude
 
 import Control.Monad.Rec.Class (class MonadRec, Step(..))
+import Data.Distributive (class Distributive, collectDefault)
 import Partial.Unsafe (unsafePartial)
 
 -- | `ST` is concerned with _restricted_ mutation. Mutation is restricted to a
@@ -24,6 +25,8 @@ foreign import map_ :: forall r a b. (a -> b) -> ST r a -> ST r b
 foreign import pure_ :: forall r a. a -> ST r a
 
 foreign import bind_ :: forall r a b. ST r a -> (a -> ST r b) -> ST r b
+
+foreign import distribute_ :: forall r a f. ((ST r a -> a) -> f (ST r a) -> f a) -> f (ST r a) -> ST r (f a)
 
 instance functorST :: Functor (ST r) where
   map = map_
@@ -56,6 +59,10 @@ instance monadRecST :: MonadRec (ST r) where
       isLooping = case _ of
         Loop _ -> true
         _ -> false
+
+instance distributiveST :: Distributive (ST r) where
+  distribute = distribute_ map
+  collect = collectDefault
 
 -- | Run an `ST` computation.
 -- |

@@ -22,6 +22,16 @@ exports.bind_ = function (a) {
   };
 };
 
+exports.distribute_ = function (map_a) {
+  return function (a) {
+    return function () {
+      return map_a(function(f){
+        return f();
+      })(a);
+    };
+  };
+};
+
 exports.run = function (f) {
   return f();
 };
