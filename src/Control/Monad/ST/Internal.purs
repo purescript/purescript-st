@@ -8,7 +8,7 @@ import Partial.Unsafe (unsafePartial)
 -- | `ST` is concerned with _restricted_ mutation. Mutation is restricted to a
 -- | _region_ of mutable references. This kind is inhabited by phantom types
 -- | which represent regions in the type system.
-foreign import kind Region
+data Region
 
 -- | The `ST` type constructor allows _local mutation_, i.e. mutation which
 -- | does not "escape" into the surrounding computation.
