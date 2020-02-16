@@ -1,4 +1,17 @@
-module Control.Monad.ST.Internal where
+module Control.Monad.ST.Internal
+  ( kind Region
+  , ST
+  , run
+  , while
+  , for
+  , foreach
+  , STRef
+  , new
+  , read
+  , modify'
+  , modify
+  , write
+  ) where
 
 import Prelude
 
@@ -98,7 +111,10 @@ foreign import read :: forall a r. STRef r a -> ST r a
 -- | Update the value of a mutable reference by applying a function
 -- | to the current value, computing a new state value for the reference and
 -- | a return value.
-foreign import modify' :: forall r a b. (a -> { state :: a, value :: b }) -> STRef r a -> ST r b
+modify' :: forall r a b. (a -> { state :: a, value :: b }) -> STRef r a -> ST r b
+modify' = modifyImpl
+
+foreign import modifyImpl :: forall r a b. (a -> { state :: a, value :: b }) -> STRef r a -> ST r b
 
 -- | Modify the value of a mutable reference by applying a function to the
 -- | current value. The modified value is returned.
