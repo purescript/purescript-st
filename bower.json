@@ -19,7 +19,8 @@
   "dependencies": {
     "purescript-prelude": "^4.0.0",
     "purescript-tailrec": "^4.0.0",
-    "purescript-partial": "^2.0.0"
+    "purescript-partial": "^2.0.0",
+    "purescript-unsafe-coerce": "^4.0.0"
   },
   "devDependencies": {
     "purescript-console": "^4.0.0"
