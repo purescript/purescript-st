@@ -19,6 +19,8 @@ data Region
 -- | The `run` function can be used to run a computation in the `ST` monad.
 foreign import data ST :: Region -> Type -> Type
 
+type role ST nominal representational
+
 foreign import map_ :: forall r a b. (a -> b) -> ST r a -> ST r b
 
 foreign import pure_ :: forall r a. a -> ST r a
@@ -88,6 +90,8 @@ foreign import foreach :: forall r a. Array a -> (a -> ST r Unit) -> ST r Unit
 -- | The type `STRef r a` represents a mutable reference holding a value of
 -- | type `a`, which can be used with the `ST r` effect.
 foreign import data STRef :: Region -> Type -> Type
+
+type role STRef nominal representational
 
 -- | Create a new mutable reference.
 foreign import new :: forall a r. a -> ST r (STRef r a)
