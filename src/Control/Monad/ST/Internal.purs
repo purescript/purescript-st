@@ -2,6 +2,7 @@ module Control.Monad.ST.Internal where
 
 import Prelude
 
+import Control.Apply (lift2)
 import Control.Monad.Rec.Class (class MonadRec, Step(..))
 import Partial.Unsafe (unsafePartial)
 
@@ -56,6 +57,17 @@ instance monadRecST :: MonadRec (ST r) where
       isLooping = case _ of
         Loop _ -> true
         _ -> false
+
+-- | The `Semigroup` instance for effects allows you to run two effects, one
+-- | after the other, and then combine their results using the result type's
+-- | `Semigroup` instance.
+instance semigroupST :: Semigroup a => Semigroup (ST r a) where
+  append = lift2 append
+
+-- | If you have a `Monoid a` instance, then `mempty :: ST r a` is defined as
+-- | `pure mempty`.
+instance monoidST :: Monoid a => Monoid (ST r a) where
+  mempty = pure_ mempty
 
 -- | Run an `ST` computation.
 -- |
