@@ -5,7 +5,7 @@ module Control.Monad.ST.Global
 
 import Prelude
 
-import Control.Monad.ST (ST, kind Region)
+import Control.Monad.ST (ST, Region)
 import Effect (Effect)
 import Unsafe.Coerce (unsafeCoerce)
 

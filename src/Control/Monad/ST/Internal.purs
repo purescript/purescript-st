@@ -1,5 +1,5 @@
 module Control.Monad.ST.Internal
-  ( kind Region
+  ( Region
   , ST
   , run
   , while
