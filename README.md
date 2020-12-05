@@ -1,14 +1,14 @@
 # purescript-st
 
 [![Latest release](http://img.shields.io/github/release/purescript/purescript-st.svg)](https://github.com/purescript/purescript-st/releases)
-[![Build status](https://travis-ci.org/purescript/purescript-st.svg?branch=master)](https://travis-ci.org/purescript/purescript-st)
+[![Build status](https://github.com/purescript/purescript-st/workflows/CI/badge.svg?branch=master)](https://github.com/purescript/purescript-st/actions?query=workflow%3ACI+branch%3Amaster)
 
 The ST effect, for safe local mutation.
 
 ## Installation
 
 ```
-bower install purescript-st
+spago install st
 ```
 
 ## Documentation
