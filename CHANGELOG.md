@@ -13,7 +13,7 @@ New features:
 Bugfixes:
 
 Other improvements:
-- Remove primes from foreign module exports (#29) 
+- Removed primes from foreign module exports (#29) 
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#38)
 - Added a changelog and pull request template (#40, #41)
 
