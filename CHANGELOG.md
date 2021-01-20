@@ -5,16 +5,21 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
+- Added support for PureScript 0.14 and dropped support for all previous versions (#37)
 
 New features:
+- Add roles declarations to allow safe coercions (#37)
 
 Bugfixes:
 
 Other improvements:
+- Remove primes from foreign module exports (#29) 
+- Migrated CI to GitHub Actions and updated installation instructions to use Spago (#38)
+- Added a changelog and pull request template (#40, #41)
 
 ## [v4.1.1](https://github.com/purescript/purescript-st/releases/tag/v4.1.1) - 2020-03-04
 
-* Re-release with `v` tag prefix for package-sets
+- Re-release with `v` tag prefix for package-sets
 
 ## [4.1.0](https://github.com/purescript/purescript-st/releases/tag/4.1.0) - 2020-02-23
 
@@ -23,8 +28,8 @@ Other improvements:
 
 ## [v4.0.1](https://github.com/purescript/purescript-st/releases/tag/v4.0.1) - 2019-11-02
 
-* Fix a typo in the documentation for `ST.run` (@jy14898)
-* Fix some unused import warnings (@Ebmtranceboy)
+- Fix a typo in the documentation for `ST.run` (@jy14898)
+- Fix some unused import warnings (@Ebmtranceboy)
 
 ## [v4.0.0](https://github.com/purescript/purescript-st/releases/tag/v4.0.0) - 2018-05-23
 
@@ -47,19 +52,10 @@ This release is intended for the PureScript 0.9.1 compiler and newer.
 
 **Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
 
-## [v1.0.0-rc.1](https://github.com/purescript/purescript-st/releases/tag/v1.0.0-rc.1) - 2016-03-16
-
-- Release candidate for the psc 0.8+ core libraries
-
 ## [v0.1.1](https://github.com/purescript/purescript-st/releases/tag/v0.1.1) - 2015-09-12
 
-Simplify the type of `pureST`.
+- Simplify the type of `pureST`.
 
 ## [v0.1.0](https://github.com/purescript/purescript-st/releases/tag/v0.1.0) - 2015-06-30
 
-This release works with versions 0.7.\* of the PureScript compiler. It will not work with older versions. If you are using an older version, you should require an older, compatible version of this library.
-
-## [v0.1.0-rc.1](https://github.com/purescript/purescript-st/releases/tag/v0.1.0-rc.1) - 2015-06-06
-
-Initial release candidate.
-
+Initial release. This release works with versions 0.7.\* of the PureScript compiler. It will not work with older versions. If you are using an older version, you should require an older, compatible version of this library.
