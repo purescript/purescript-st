@@ -17,12 +17,12 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-prelude": "master",
-    "purescript-tailrec": "master",
-    "purescript-partial": "master",
-    "purescript-unsafe-coerce": "master"
+    "purescript-partial": "^3.0.0",
+    "purescript-prelude": "^5.0.0",
+    "purescript-tailrec": "^5.0.0",
+    "purescript-unsafe-coerce": "^5.0.0"
   },
   "devDependencies": {
-    "purescript-console": "master"
+    "purescript-console": "^5.0.0"
   }
 }
