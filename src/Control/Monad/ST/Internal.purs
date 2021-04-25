@@ -62,7 +62,7 @@ instance monadRecST :: MonadRec (ST r) where
         Loop a' -> do
           e <- f a'
           void (write e r)
-        Done b -> pure unit
+        Done _ -> pure unit
     fromDone <$> read r
     where
       fromDone :: forall a b. Step a b -> b
