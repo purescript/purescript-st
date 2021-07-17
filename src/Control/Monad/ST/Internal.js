@@ -1,6 +1,6 @@
 "use strict";
 
-exports.map_ = function (f) {
+export var map_ = function (f) {
   return function (a) {
     return function () {
       return f(a());
@@ -8,13 +8,13 @@ exports.map_ = function (f) {
   };
 };
 
-exports.pure_ = function (a) {
+export var pure_ = function (a) {
   return function () {
     return a;
   };
 };
 
-exports.bind_ = function (a) {
+export var bind_ = function (a) {
   return function (f) {
     return function () {
       return f(a())();
@@ -22,11 +22,11 @@ exports.bind_ = function (a) {
   };
 };
 
-exports.run = function (f) {
+export var run = function (f) {
   return f();
 };
 
-exports["while"] = function (f) {
+export var while_ = function (f) {
   return function (a) {
     return function () {
       while (f()) {
@@ -36,7 +36,7 @@ exports["while"] = function (f) {
   };
 };
 
-exports["for"] = function (lo) {
+export var for_ = function (lo) {
   return function (hi) {
     return function (f) {
       return function () {
@@ -48,7 +48,7 @@ exports["for"] = function (lo) {
   };
 };
 
-exports.foreach = function (as) {
+export var foreach = function (as) {
   return function (f) {
     return function () {
       for (var i = 0, l = as.length; i < l; i++) {
@@ -58,19 +58,19 @@ exports.foreach = function (as) {
   };
 };
 
-exports.new = function (val) {
+export var new = function (val) {
   return function () {
     return { value: val };
   };
 };
 
-exports.read = function (ref) {
+export var read = function (ref) {
   return function () {
     return ref.value;
   };
 };
 
-exports.modifyImpl = function (f) {
+export var modifyImpl = function (f) {
   return function (ref) {
     return function () {
       var t = f(ref.value);
@@ -80,7 +80,7 @@ exports.modifyImpl = function (f) {
   };
 };
 
-exports.write = function (a) {
+export var write = function (a) {
   return function (ref) {
     return function () {
       return ref.value = a; // eslint-disable-line no-return-assign
