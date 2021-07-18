@@ -86,19 +86,13 @@ foreign import run :: forall a. (forall r. ST r a) -> a
 -- | `while b m` is ST computation which runs the ST computation `b`. If its
 -- | result is `true`, it runs the ST computation `m` and loops. If not, the
 -- | computation ends.
-foreign import while_ :: forall r a. ST r Boolean -> ST r a -> ST r Unit
-
-while :: forall r a. ST r Boolean -> ST r a -> ST r Unit
-while = while_
+foreign import while :: forall r a. ST r Boolean -> ST r a -> ST r Unit
 
 -- | Loop over a consecutive collection of numbers
 -- |
 -- | `ST.for lo hi f` runs the computation returned by the function `f` for each
 -- | of the inputs between `lo` (inclusive) and `hi` (exclusive).
-foreign import for_ :: forall r a. Int -> Int -> (Int -> ST r a) -> ST r Unit
-
-for :: forall r a. Int -> Int -> (Int -> ST r a) -> ST r Unit
-for = for_
+foreign import for :: forall r a. Int -> Int -> (Int -> ST r a) -> ST r Unit
 
 -- | Loop over an array of values.
 -- |

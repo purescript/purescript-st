@@ -26,7 +26,7 @@ export var run = function (f) {
   return f();
 };
 
-export var while_ = function (f) {
+function whileST(f) {
   return function (a) {
     return function () {
       while (f()) {
@@ -34,9 +34,10 @@ export var while_ = function (f) {
       }
     };
   };
-};
+}
+export { whileST as while };
 
-export var for_ = function (lo) {
+function forST(lo) {
   return function (hi) {
     return function (f) {
       return function () {
@@ -46,7 +47,8 @@ export var for_ = function (lo) {
       };
     };
   };
-};
+}
+export { forST as for }
 
 export var foreach = function (as) {
   return function (f) {
@@ -58,11 +60,12 @@ export var foreach = function (as) {
   };
 };
 
-export var new = function (val) {
+function newSTRef(val) {
   return function () {
     return { value: val };
   };
-};
+}
+export { newSTRef as new };
 
 export var read = function (ref) {
   return function () {
