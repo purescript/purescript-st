@@ -1,6 +1,6 @@
 "use strict";
 
-export var map_ = function (f) {
+export const map_ = function (f) {
   return function (a) {
     return function () {
       return f(a());
@@ -8,13 +8,13 @@ export var map_ = function (f) {
   };
 };
 
-export var pure_ = function (a) {
+export const pure_ = function (a) {
   return function () {
     return a;
   };
 };
 
-export var bind_ = function (a) {
+export const bind_ = function (a) {
   return function (f) {
     return function () {
       return f(a())();
@@ -22,7 +22,7 @@ export var bind_ = function (a) {
   };
 };
 
-export var run = function (f) {
+export const run = function (f) {
   return f();
 };
 
@@ -50,7 +50,7 @@ function forST(lo) {
 }
 export { forST as for }
 
-export var foreach = function (as) {
+export const foreach = function (as) {
   return function (f) {
     return function () {
       for (var i = 0, l = as.length; i < l; i++) {
@@ -67,13 +67,13 @@ function newSTRef(val) {
 }
 export { newSTRef as new };
 
-export var read = function (ref) {
+export const read = function (ref) {
   return function () {
     return ref.value;
   };
 };
 
-export var modifyImpl = function (f) {
+export const modifyImpl = function (f) {
   return function (ref) {
     return function () {
       var t = f(ref.value);
@@ -83,7 +83,7 @@ export var modifyImpl = function (f) {
   };
 };
 
-export var write = function (a) {
+export const write = function (a) {
   return function (ref) {
     return function () {
       return ref.value = a; // eslint-disable-line no-return-assign
