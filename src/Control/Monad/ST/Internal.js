@@ -1,5 +1,3 @@
-"use strict";
-
 export const map_ = function (f) {
   return function (a) {
     return function () {
