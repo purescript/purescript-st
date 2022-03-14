@@ -46,7 +46,7 @@ function forST(lo) {
     };
   };
 }
-export { forST as for }
+export { forST as for };
 
 export const foreach = function (as) {
   return function (f) {
