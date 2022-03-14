@@ -1,6 +1,4 @@
-"use strict";
-
-exports.map_ = function (f) {
+export const map_ = function (f) {
   return function (a) {
     return function () {
       return f(a());
@@ -8,13 +6,13 @@ exports.map_ = function (f) {
   };
 };
 
-exports.pure_ = function (a) {
+export const pure_ = function (a) {
   return function () {
     return a;
   };
 };
 
-exports.bind_ = function (a) {
+export const bind_ = function (a) {
   return function (f) {
     return function () {
       return f(a())();
@@ -22,11 +20,11 @@ exports.bind_ = function (a) {
   };
 };
 
-exports.run = function (f) {
+export const run = function (f) {
   return f();
 };
 
-exports["while"] = function (f) {
+function whileST(f) {
   return function (a) {
     return function () {
       while (f()) {
@@ -34,9 +32,10 @@ exports["while"] = function (f) {
       }
     };
   };
-};
+}
+export { whileST as while };
 
-exports["for"] = function (lo) {
+function forST(lo) {
   return function (hi) {
     return function (f) {
       return function () {
@@ -46,9 +45,10 @@ exports["for"] = function (lo) {
       };
     };
   };
-};
+}
+export { forST as for };
 
-exports.foreach = function (as) {
+export const foreach = function (as) {
   return function (f) {
     return function () {
       for (var i = 0, l = as.length; i < l; i++) {
@@ -58,19 +58,20 @@ exports.foreach = function (as) {
   };
 };
 
-exports.new = function (val) {
+function newSTRef(val) {
   return function () {
     return { value: val };
   };
-};
+}
+export { newSTRef as new };
 
-exports.read = function (ref) {
+export const read = function (ref) {
   return function () {
     return ref.value;
   };
 };
 
-exports.modifyImpl = function (f) {
+export const modifyImpl = function (f) {
   return function (ref) {
     return function () {
       var t = f(ref.value);
@@ -80,7 +81,7 @@ exports.modifyImpl = function (f) {
   };
 };
 
-exports.write = function (a) {
+export const write = function (a) {
   return function (ref) {
     return function () {
       return ref.value = a; // eslint-disable-line no-return-assign
