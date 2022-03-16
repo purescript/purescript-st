@@ -7,7 +7,7 @@ import Control.Monad.ST.Global (Global)
 import Control.Monad.ST.Global as Global
 import Effect (Effect)
 
-class MonadST s m | m -> s where
+class Monad m <= MonadST s m | m -> s where
   liftST :: ST s ~> m
 
 instance monadSTEffect :: MonadST Global Effect where
