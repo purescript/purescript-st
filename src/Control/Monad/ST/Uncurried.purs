@@ -17,7 +17,7 @@
 module Control.Monad.ST.Uncurried where
 
 import Data.Monoid (class Monoid, class Semigroup, mempty, (<>))
-import Control.Monad.ST (ST)
+import Control.Monad.ST.Internal (ST, Region)
 
 foreign import data STFn1 :: Region -> Type -> Type -> Type
 
