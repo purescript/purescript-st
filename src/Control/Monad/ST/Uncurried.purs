@@ -70,7 +70,7 @@ foreign import mkSTFn4 :: forall t a b c d r.
 foreign import mkSTFn5 :: forall t a b c d e r.
   (a -> b -> c -> d -> e -> ST t r) -> STFn5 t a b c d e r
 foreign import mkSTFn6 :: forall t a b c d e f r.
-  (a -> b -> c -> d -> e -> f -> ST t r) -> STFn6 at  b c d e f r
+  (a -> b -> c -> d -> e -> f -> ST t r) -> STFn6 t a b c d e f r
 foreign import mkSTFn7 :: forall t a b c d e f g r.
   (a -> b -> c -> d -> e -> f -> g -> ST t r) -> STFn7 t a b c d e f g r
 foreign import mkSTFn8 :: forall t a b c d e f g h r.
