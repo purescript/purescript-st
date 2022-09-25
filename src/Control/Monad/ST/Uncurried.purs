@@ -18,43 +18,43 @@ module Control.Monad.ST.Uncurried where
 
 import Control.Monad.ST.Internal (ST, Region)
 
-foreign import data STFn1 :: Type -> Type -> Region -> Type
+foreign import data STFn1 :: Type -> Region -> Type -> Type
 
 type role STFn1 representational nominal representational
 
-foreign import data STFn2 :: Type -> Type -> Type -> Region -> Type
+foreign import data STFn2 :: Type -> Type -> Region -> Type -> Type
 
 type role STFn2 representational representational nominal representational
 
-foreign import data STFn3 :: Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn3 :: Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn3 representational representational representational nominal representational
 
-foreign import data STFn4 :: Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn4 :: Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn4 representational representational representational representational nominal representational
 
-foreign import data STFn5 :: Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn5 :: Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn5 representational representational representational representational representational nominal representational
 
-foreign import data STFn6 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn6 :: Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn6 representational representational representational representational representational representational nominal representational
 
-foreign import data STFn7 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn7 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn7 representational representational representational representational representational representational representational nominal representational
 
-foreign import data STFn8 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn8 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn8 representational representational representational representational representational representational representational representational nominal representational
 
-foreign import data STFn9 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn9 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn9 representational representational representational representational representational representational representational representational representational nominal representational
 
-foreign import data STFn10 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type
+foreign import data STFn10 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Region -> Type -> Type
 
 type role STFn10 representational representational representational representational representational representational representational representational representational representational nominal representational
 
