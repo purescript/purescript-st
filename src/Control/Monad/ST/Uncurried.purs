@@ -64,14 +64,14 @@ foreign import mkSTFn2 :: forall a b t r.
   (a -> b -> ST t r) -> STFn2 a b t r
 foreign import mkSTFn3 :: forall a b c t r.
   (a -> b -> c -> ST t r) -> STFn3 a b c t r
-foreign import mkSTFn4 :: forall a b c d t t r.
-  (a -> b -> c -> d -> ST t r) -> STFn4 a b c d t t r
+foreign import mkSTFn4 :: forall a b c d t r.
+  (a -> b -> c -> d -> ST t r) -> STFn4 a b c d t r
 foreign import mkSTFn5 :: forall a b c d e t r.
   (a -> b -> c -> d -> e -> ST t r) -> STFn5 a b c d e t r
 foreign import mkSTFn6 :: forall a b c d e f t r.
   (a -> b -> c -> d -> e -> f -> ST t r) -> STFn6 a b c d e f t r
 foreign import mkSTFn7 :: forall a b c d e f g t r.
-  (a -> b -> c -> d -> e -> f -> g -> ST t r) -> STFn7 a b c d e f g t t r
+  (a -> b -> c -> d -> e -> f -> g -> ST t r) -> STFn7 a b c d e f g t r
 foreign import mkSTFn8 :: forall a b c d e f g h t r.
   (a -> b -> c -> d -> e -> f -> g -> h -> ST t r) -> STFn8 a b c d e f g h t r
 foreign import mkSTFn9 :: forall a b c d e f g h i t r.
