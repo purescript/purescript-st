@@ -7,11 +7,15 @@ Notable changes to this project are documented in this file. The format is based
 Breaking changes:
 
 New features:
-- Adds uncurried ST functions with similar signatures and purposes as effect uncurried functions.
 
 Bugfixes:
 
 Other improvements:
+
+## [v6.1.0](https://github.com/purescript/purescript-st/releases/tag/v6.1.0) - 2022-09-26
+
+New features:
+- Adds uncurried ST functions with similar signatures and purposes as effect uncurried functions (#52 by @mikesol)
 
 ## [v6.0.0](https://github.com/purescript/purescript-st/releases/tag/v6.0.0) - 2022-04-27
 
