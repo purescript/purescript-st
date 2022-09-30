@@ -15,6 +15,7 @@ module Control.Monad.ST.Internal
 
 import Prelude
 
+import Control.Apply (lift2)
 import Control.Monad.Rec.Class (class MonadRec, Step(..))
 import Partial.Unsafe (unsafePartial)
 
@@ -71,6 +72,12 @@ instance monadRecST :: MonadRec (ST r) where
       isLooping = case _ of
         Loop _ -> true
         _ -> false
+
+instance semigroupST :: Semigroup a => Semigroup (ST r a) where
+  append = lift2 append
+
+instance monoidST :: Monoid a => Monoid (ST r a) where
+  mempty = pure mempty
 
 -- | Run an `ST` computation.
 -- |
