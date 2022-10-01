@@ -7,11 +7,15 @@ Notable changes to this project are documented in this file. The format is based
 Breaking changes:
 
 New features:
-- Add Semigroup and Monoid instances (#51 by @PureFunctor)
 
 Bugfixes:
 
 Other improvements:
+
+## [v6.2.0](https://github.com/purescript/purescript-st/releases/tag/v6.2.0) - 2022-09-30
+
+New features:
+- Add Semigroup and Monoid instances (#51 by @PureFunctor)
 
 ## [v6.1.0](https://github.com/purescript/purescript-st/releases/tag/v6.1.0) - 2022-09-26
 
