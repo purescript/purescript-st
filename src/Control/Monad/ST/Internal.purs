@@ -66,12 +66,12 @@ instance monadRecST :: MonadRec (ST r) where
         Done _ -> pure unit
     fromDone <$> read r
     where
-      fromDone :: forall a b. Step a b -> b
-      fromDone = unsafePartial \(Done b) -> b
+    fromDone :: forall a b. Step a b -> b
+    fromDone = unsafePartial \(Done b) -> b
 
-      isLooping = case _ of
-        Loop _ -> true
-        _ -> false
+    isLooping = case _ of
+      Loop _ -> true
+      _ -> false
 
 instance semigroupST :: Semigroup a => Semigroup (ST r a) where
   append = lift2 append

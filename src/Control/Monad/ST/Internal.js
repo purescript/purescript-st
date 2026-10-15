@@ -84,7 +84,7 @@ export const modifyImpl = function (f) {
 export const write = function (a) {
   return function (ref) {
     return function () {
-      return ref.value = a;
+      return (ref.value = a);
     };
   };
 };
