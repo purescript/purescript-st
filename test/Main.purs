@@ -11,10 +11,11 @@ sumOfSquares :: Int
 sumOfSquares = ST.run do
   total <- STRef.new 0
   let
-    loop 0 = STRef.read total
-    loop n = do
-      _ <- STRef.modify (_ + (n * n)) total
-      loop (n - 1)
+    loop n = case n of
+      0 -> STRef.read total
+      _ -> do
+        _ <- STRef.modify (_ + (n * n)) total
+        loop (n - 1)
   loop 100
 
 main :: Effect Unit
