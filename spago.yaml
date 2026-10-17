@@ -1,0 +1,25 @@
+package:
+  name: st
+  description: The ST effect, for safe local mutation
+  build:
+    strict: true
+    pedanticPackages: true
+  publish:
+    version: 6.2.1
+    license: BSD-3-Clause
+    location:
+      githubOwner: purescript
+      githubRepo: purescript-st
+  dependencies:
+    - effect: ">=4.0.0 <5.0.0"
+    - partial: ">=4.0.0 <5.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+    - tailrec: ">=6.0.0 <7.0.0"
+    - unsafe-coerce: ">=6.0.0 <7.0.0"
+  test:
+    main: Test.Main
+    strict: true
+    pedanticPackages: true
+    dependencies:
+      - console: ">=6.0.0 <7.0.0"
+workspace: {}
