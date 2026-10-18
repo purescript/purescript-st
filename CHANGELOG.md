@@ -2,7 +2,7 @@
 
 Notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased](https://github.com/purescript/purescript-st/compare/v6.2.1...HEAD)
 
 Breaking changes:
 
@@ -12,19 +12,35 @@ Bugfixes:
 
 Other improvements:
 
+## [v6.2.1](https://github.com/purescript/purescript-st/releases/tag/v6.2.1) - 2026-10-17
+
+Breaking changes:
+
+New features:
+
+Bugfixes:
+
+Other improvements:
+
+- Migrate from Bower/Pulp to Spago and update CI, linting, and formatting. (#53 by @thomashoneyman)
+- Apply behavior-preserving style refactors to `modify` and the test loop. (#53 by @thomashoneyman)
+
 ## [v6.2.0](https://github.com/purescript/purescript-st/releases/tag/v6.2.0) - 2022-09-30
 
 New features:
+
 - Add Semigroup and Monoid instances (#51 by @PureFunctor)
 
 ## [v6.1.0](https://github.com/purescript/purescript-st/releases/tag/v6.1.0) - 2022-09-26
 
 New features:
+
 - Adds uncurried ST functions with similar signatures and purposes as effect uncurried functions (#52 by @mikesol)
 
 ## [v6.0.0](https://github.com/purescript/purescript-st/releases/tag/v6.0.0) - 2022-04-27
 
 Breaking changes:
+
 - Migrate FFI to ES modules (#47 by @kl0tl and @JordanMartinez)
 
 New features:
@@ -36,20 +52,24 @@ Other improvements:
 ## [v5.0.1](https://github.com/purescript/purescript-st/releases/tag/v5.0.1) - 2021-04-27
 
 Other improvements:
+
 - Fix warnings revealed by v0.14.1 PS release (#43 by @JordanMartinez)
 
 ## [v5.0.0](https://github.com/purescript/purescript-st/releases/tag/v5.0.0) - 2021-02-26
 
 Breaking changes:
+
 - Added support for PureScript 0.14 and dropped support for all previous versions (#37)
 
 New features:
+
 - Add roles declarations to allow safe coercions (#37)
 
 Bugfixes:
 
 Other improvements:
-- Removed primes from foreign module exports (#29) 
+
+- Removed primes from foreign module exports (#29)
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#38)
 - Added a changelog and pull request template (#40, #41)
 
